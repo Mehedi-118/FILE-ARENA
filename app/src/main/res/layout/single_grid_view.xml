@@ -12,3 +12,4 @@
         android:fitsSystemWindows="true"
         android:scaleType="fitXY" />
 </LinearLayout>
+
