@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FILE_ARENA</string>
+
+    <string name="lblTakePhoto">Take Photo</string>
+    <string name="lblTakeNewPhoto">Take New Photo</string>
+    <string name="lblOpenExistingImage">Open Existing Image</string>
+
+</resources>
