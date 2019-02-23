@@ -81,7 +81,6 @@ public class GalleryWindow extends AppCompatActivity {
 
             return convertView;
         }
-
     }
 
 
