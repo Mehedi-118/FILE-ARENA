@@ -82,6 +82,5 @@ public class GalleryWindow extends AppCompatActivity {
         }
     }
 
-
 }
 
