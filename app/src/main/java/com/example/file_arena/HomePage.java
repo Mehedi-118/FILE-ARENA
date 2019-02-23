@@ -110,14 +110,7 @@ public class HomePage extends AppCompatActivity {
                 } else {
                     Toast.makeText(HomePage.this, "NO MEMEORY CARD AVAILABLE", Toast.LENGTH_SHORT).show();
                 }
-               /* String state = Environment.getExternalStorageState();
-                if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-                    Intent sdCard=new Intent(HomePage.this,SdCard.class);
-                    startActivity(sdCard);
-                    Toast.makeText(HomePage.this,"SD CARD",Toast.LENGTH_SHORT).show();
-                }
-                else
-                    Toast.makeText(HomePage.this,"NO MEMEORY CARD AVAILABLE",Toast.LENGTH_SHORT).show();*/
+
 
             }
 
