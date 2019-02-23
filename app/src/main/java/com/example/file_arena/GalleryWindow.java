@@ -54,7 +54,6 @@ public class GalleryWindow extends AppCompatActivity {
 
         return a;
     }
-
     class GridAdapter extends BaseAdapter {
 
         @Override
