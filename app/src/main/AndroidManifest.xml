@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SdCard"></activity>
+        <activity android:name=".HomePage" />
+        <activity android:name=".SdCard" />
         <activity android:name=".InternalStorage" />
         <activity android:name=".ImageViewScreen" />
         <activity android:name=".RecentWindow" />
@@ -25,7 +26,10 @@
         <activity android:name=".AudioWindow" />
         <activity android:name=".VideoWindow" />
         <activity android:name=".GalleryWindow" />
-        <activity android:name=".HomePage">
+        <activity
+            android:name=".SplashWIndow"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
