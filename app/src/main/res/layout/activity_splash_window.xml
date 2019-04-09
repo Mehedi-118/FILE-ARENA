@@ -3,39 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#006a4e"
+    android:background="#Ff00"
     android:orientation="vertical"
     tools:context=".SplashWIndow">
 
 
     <ImageView
         android:id="@+id/splashimg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="243dp"
+        android:layout_height="233dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="218dp"
-        android:layout_marginEnd="83dp"
-        android:layout_marginRight="83dp"
-        android:src="@drawable/images" />
+        android:layout_marginTop="253dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginRight="78dp"
+        android:src="@drawable/appicon" />
+    <![CDATA[
 
-    <TextView
-        android:id="@+id/textViewId"
-        android:layout_width="391dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-
-        android:layout_alignParentRight="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="480dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        android:text="Welcome To File Arena"
-        android:textColor="#5e0000"
-        android:textSize="35dp"
-        android:textStyle="bold" />
     "
     tools:layout_editor_absoluteX="38dp"
     tools:layout_editor_absoluteY="368dp" />
+]]>
 </RelativeLayout>

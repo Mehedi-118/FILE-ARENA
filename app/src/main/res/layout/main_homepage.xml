@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wallpaper_home"
+    android:id="@+id/titlebar"
     tools:context=".HomePage"
     tools:ignore="ContentDescription">
 
@@ -18,7 +18,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="38dp"
         android:layout_marginLeft="38dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="53dp"
         app:srcCompat="@drawable/hard_drive" />
 
     <ImageButton
@@ -30,11 +30,12 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="53dp"
         app:srcCompat="@drawable/memory_card" />
 
     <ImageButton
         android:id="@+id/galleryButton"
+        android:layout_marginTop="78dp"
         android:layout_width="107dp"
         android:layout_height="102dp"
         android:layout_alignParentStart="true"
@@ -42,11 +43,13 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="49dp"
-        app:srcCompat="@drawable/gallary" />
+        android:background="@drawable/roundedcorner"
+        app:srcCompat="@drawable/galleryicon" />
 
     <ImageButton
         android:id="@+id/videoButton"
+        android:layout_marginTop="78dp"
+
         android:layout_width="107dp"
         android:layout_height="102dp"
         android:layout_alignParentStart="true"
@@ -54,17 +57,18 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="149dp"
         android:layout_marginLeft="149dp"
-        android:layout_marginTop="49dp"
+        android:background="@android:color/transparent"
         app:srcCompat="@drawable/video_gallery" />
 
     <ImageButton
         android:id="@+id/audioButton"
         android:layout_width="107dp"
         android:layout_height="102dp"
+        android:layout_marginTop="78dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="49dp"
+        android:backgroundTint="@android:color/transparent"
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
         app:srcCompat="@drawable/audio_gallery" />
@@ -78,7 +82,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="35dp"
         android:layout_marginLeft="35dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="199dp"
         app:srcCompat="@drawable/documents" />
 
     <ImageButton
@@ -88,7 +92,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="199dp"
         android:layout_marginEnd="150dp"
         android:layout_marginRight="150dp"
         app:srcCompat="@drawable/compressed_file" />
@@ -100,21 +104,21 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="199dp"
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
         app:srcCompat="@drawable/apps" />
 
     <ImageButton
         android:id="@+id/downloadButton"
-        android:layout_width="107dp"
-        android:layout_height="95dp"
+        android:layout_width="106dp"
+        android:layout_height="100dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="38dp"
         android:layout_marginLeft="38dp"
-        android:layout_marginBottom="222dp"
+        android:layout_marginBottom="175dp"
         app:srcCompat="@drawable/downloads" />
 
     <ImageButton
@@ -124,9 +128,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="143dp"
-        android:layout_marginRight="143dp"
-        android:layout_marginBottom="218dp"
+        android:layout_marginEnd="147dp"
+        android:layout_marginRight="147dp"
+        android:layout_marginBottom="175dp"
         app:srcCompat="@drawable/recent_files" />
 
     <ImageButton
@@ -136,9 +140,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="216dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="176dp"
         app:srcCompat="@drawable/favorits" />
 
     <TextView
@@ -148,9 +152,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginTop="147dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="180dp"
         android:text="      Photos"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
@@ -163,9 +167,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="154dp"
-        android:layout_marginLeft="154dp"
-        android:layout_marginTop="147dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="175dp"
         android:text="        Videos"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -178,9 +182,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="146dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
+        android:layout_marginTop="174dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
         android:text="        Audios"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -193,9 +197,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="272dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="306dp"
         android:text="    Documents"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -210,7 +214,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="156dp"
         android:layout_marginLeft="156dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="306dp"
         android:text="    compressed"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -223,9 +227,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="272dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginRight="39dp"
+        android:layout_marginTop="305dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:text="    Applications"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -238,9 +242,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="43dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginBottom="204dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginBottom="155dp"
         android:text="  Downloads"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -253,9 +257,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="164dp"
-        android:layout_marginLeft="164dp"
-        android:layout_marginBottom="201dp"
+        android:layout_marginStart="165dp"
+        android:layout_marginLeft="165dp"
+        android:layout_marginBottom="156dp"
         android:text="    Recent Files"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -268,9 +272,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="201dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginRight="33dp"
+        android:layout_marginBottom="158dp"
         android:text="    Favorites"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -283,9 +287,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginLeft="46dp"
-        android:layout_marginBottom="51dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginBottom="20dp"
         android:text="      Local memory"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -298,12 +302,25 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="29dp"
+        android:layout_marginBottom="21dp"
         android:text="          micro ssd"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold|italic" />
 
+    <!-- <Switch
+         android:id="@+id/switch1"
+         android:layout_width="wrap_content"
+         android:layout_height="50dp"
+         android:layout_alignParentTop="true"
+         android:layout_alignParentEnd="true"
+         android:layout_alignParentRight="true"
+         android:layout_marginTop="15dp"
+         android:layout_marginEnd="18dp"
+         android:layout_marginRight="18dp"
+         android:drawableLeft="@drawable/cloudynight1"
+         android:textSize="20sp" />
+ -->
 </RelativeLayout>

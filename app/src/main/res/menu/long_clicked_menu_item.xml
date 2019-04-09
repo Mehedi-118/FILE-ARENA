@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/MoveId"
+        android:icon="@drawable/ic_moveto"
+        android:title="Move To"
+        app:showAsAction="always"
+
+        />
+    <item
+        android:id="@+id/CopyId"
+        android:icon="@drawable/ic_content_copy"
+        android:title="Copy To"
+        app:showAsAction="always"
+
+        />
+    <item
+        android:id="@+id/ShareId"
+        android:icon="@drawable/ic_share"
+        android:title="Share"
+        app:showAsAction="always"
+
+        />
+
+    <item
+        android:id="@+id/Deleteid"
+        android:icon="@drawable/ic_delete"
+        android:title=""
+        app:showAsAction="always"
+
+        />
+    <item
+        android:id="@+id/properties"
+        android:icon="@drawable/ic_details_black_24dp"
+        android:title="Properties"
+        app:showAsAction="always" />
+
+
+</menu>
