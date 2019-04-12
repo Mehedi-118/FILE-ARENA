@@ -14,7 +14,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -27,7 +32,11 @@ import java.util.ArrayList;
 public class AudioWindow extends AppCompatActivity {
     static final int MY_PERMISSION_REQUEST = 1;
     ArrayAdapter<String> adapter;
+    ListView lview;
+    int count = 0;
     ArrayList<String> arrayList;
+    ArrayList<String> paths;
+
     private ListView listView;
 
     @Override
@@ -49,25 +58,91 @@ public class AudioWindow extends AppCompatActivity {
             result();
 
         }
+
+
+        /**Item On Long clicked  Start*/
+        lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        lview.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+                if (checked)
+
+                    count++;
+                if (!checked) {
+                    count--;
+                }
+
+                mode.setTitle(count + "Selected");
+
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater menuInflater = mode.getMenuInflater();
+                menuInflater.inflate(R.menu.long_clicked_menu_item, menu);
+
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ShareId: {
+
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        // Uri screenshotUri = Uri.parse(path);
+                        sharingIntent.setType("*/*");
+                        //  sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                        startActivity(Intent.createChooser(sharingIntent, "Share With:"));
+
+
+                        return true;
+
+                    }
+                    case R.id.Deleteid: {
+
+                    }
+
+
+                    default:
+                        return false;
+                }
+
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
+
+
+        /** Item Onlongclicked  End  */
     }
 
     public void result() {
         listView = findViewById(R.id.audioListid);
         arrayList = new ArrayList<>();
 
-        final File[] paths = getMusic();
+        final ArrayList<String> NewPath = getMusic();
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                String s = paths[position].getAbsolutePath();
-                File ff = new File(s);
-                //final File[] paths = f.listFiles();
-                Toast.makeText(AudioWindow.this, s, Toast.LENGTH_SHORT).show();
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String s = NewPath.get(position);
+                File f = new File(s);
                 Intent newIntent = new Intent(Intent.ACTION_VIEW);
 
-                newIntent.setDataAndType(Uri.fromFile(ff), URLConnection.guessContentTypeFromName(s));
+                newIntent.setDataAndType(Uri.fromFile(f), URLConnection.guessContentTypeFromName(s));
 
                 Intent j = Intent.createChooser(newIntent, "Choose an application to open with: ");
                 startActivity(j);
@@ -75,42 +150,31 @@ public class AudioWindow extends AppCompatActivity {
         });
     }
 
-    public File[] getMusic() {
-        File[] path = new File[0];
+    public ArrayList<String> getMusic() {
 
+        paths = new ArrayList<>();
         ContentResolver contentResolver = getContentResolver();
         Uri songUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-
-        String s = songUri.toString();
-        File f = new File(s);
-
-
         Cursor songCursor = contentResolver.query(songUri, null, null, null, null);
 
         if (songCursor != null && songCursor.moveToFirst()) {
             int songTitle = songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
             int songArtist = songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST);
-            String[] filePathColumn = {MediaStore.Audio.Media.DATA};
+            int songLocation = songCursor.getColumnIndex(MediaStore.Audio.Media.DATA);
 
-            int i = 0;
             do {
                 String currentTitle = songCursor.getString(songTitle);
                 String currentArtist = songCursor.getString(songArtist);
+                String curretnLocation = songCursor.getString(songLocation);
                 arrayList.add(currentTitle + "\n" + currentArtist);
-                int columnIndex = songCursor.getColumnIndex(filePathColumn[0]);
-                String yourRealPath = songCursor.getString(columnIndex);
-                File ff = new File(yourRealPath);
 
-                i++;
+                paths.add(curretnLocation);
+
             } while (songCursor.moveToNext());
         }
-        Uri uri = songUri;
-        String[] filePathColumn = {MediaStore.Audio.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null, null);
 
+        return paths;
 
-        cursor.close();
-        return path;
     }
 
     @Override
