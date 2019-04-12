@@ -1,6 +1,9 @@
 package com.example.file_arena;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 public class InternalStorage extends AppCompatActivity {
     ListView lview;
@@ -50,9 +54,10 @@ public class InternalStorage extends AppCompatActivity {
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
 
                 String s = paths[position].getAbsolutePath();
-
+                view.setSelected(true);
                 File f = new File(s);
 
                 if (f.isDirectory()) {
@@ -73,13 +78,21 @@ public class InternalStorage extends AppCompatActivity {
             }
         });
         /**Item On Long clicked  Start*/
+        final ArrayList<String> clickedpath = null;
         lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         lview.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                count++;
 
-                mode.setTitle(count + " Item is selected");
+                if (checked)
+                    clickedpath.add(paths[position].toString());
+                count++;
+                if (!checked) {
+                    clickedpath.remove(paths[position].toString());
+                    count--;
+                }
+
+                mode.setTitle(count + "Selected");
 
 
             }
@@ -101,13 +114,28 @@ public class InternalStorage extends AppCompatActivity {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ShareId: {
-                        Intent intent = new Intent(Intent.ACTION_SEND);
-                        startActivity(Intent.createChooser(intent, "Share With"));
+
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        Uri screenshotUri = Uri.parse(path);
+                        sharingIntent.setType("*/*");
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                        startActivity(Intent.createChooser(sharingIntent, "Share With:"));
+
+
+
+
                         return true;
 
                     }
                     case R.id.Deleteid: {
 
+                    }
+                    case R.id.CopyId: {
+                        ClipboardManager clipboard = (ClipboardManager)
+                                getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("simple text", clickedpath.get(0));
+                        clipboard.setPrimaryClip(clip);
+                        return true;
                     }
 
 

@@ -44,7 +44,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:background="@drawable/roundedcorner"
-        app:srcCompat="@drawable/galleryicon" />
+        app:srcCompat="@drawable/gallary1" />
 
     <ImageButton
         android:id="@+id/videoButton"
@@ -62,15 +62,15 @@
 
     <ImageButton
         android:id="@+id/audioButton"
-        android:layout_width="107dp"
-        android:layout_height="102dp"
-        android:layout_marginTop="78dp"
+        android:layout_width="96dp"
+        android:layout_height="91dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="83dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginRight="39dp"
         android:backgroundTint="@android:color/transparent"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
         app:srcCompat="@drawable/audio_gallery" />
 
     <ImageButton

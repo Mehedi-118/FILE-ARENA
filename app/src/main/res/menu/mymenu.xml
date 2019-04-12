@@ -8,6 +8,13 @@
 
 
         />
+    <item
+        android:id="@+id/pasteId"
+        android:title="Paste"
+        app:showAsAction="never"
+
+
+        />
 
 
 </menu>
