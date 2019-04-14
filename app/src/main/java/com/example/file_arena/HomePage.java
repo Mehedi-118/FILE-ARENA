@@ -1,5 +1,6 @@
 package com.example.file_arena;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -161,6 +163,10 @@ public class HomePage extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF0000"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
+        ActivityCompat.requestPermissions(HomePage.this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                1);
+
 
 
         setContentView(R.layout.main_homepage);

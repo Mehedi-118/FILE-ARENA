@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -26,12 +27,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class AudioWindow extends AppCompatActivity {
     static final int MY_PERMISSION_REQUEST = 1;
     ArrayAdapter<String> adapter;
+    ArrayList<String> fileList=new ArrayList<String>();
     ListView lview;
     int count = 0;
     ArrayList<String> arrayList;
@@ -61,15 +64,18 @@ public class AudioWindow extends AppCompatActivity {
 
 
         /**Item On Long clicked  Start*/
-        lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        lview.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 
                 if (checked)
-
-                    count++;
+                   // clickedpath.add(paths[position].toString());
+               // Toast.makeText(AudioWindow.this,paths[position].toString(),Toast.LENGTH_SHORT).show();
+                count++;
                 if (!checked) {
+                   // clickedpath.remove(paths[position].toString());
                     count--;
                 }
 
@@ -85,6 +91,7 @@ public class AudioWindow extends AppCompatActivity {
 
                 return true;
             }
+
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
@@ -131,23 +138,64 @@ public class AudioWindow extends AppCompatActivity {
         listView = findViewById(R.id.audioListid);
         arrayList = new ArrayList<>();
 
-        final ArrayList<String> NewPath = getMusic();
-
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
+        //final ArrayList<String> NewPath = getMusic();
+        final ArrayList<String> path=getFile(Environment.getExternalStorageDirectory());
+        ArrayList<String> values=new ArrayList<>();
+        for(int i=0;i!=path.size();i++) {
+            File f=new File(path.get(i));
+            values.add(f.getName());
+        }
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String s = NewPath.get(position);
-                File f = new File(s);
-                Intent newIntent = new Intent(Intent.ACTION_VIEW);
 
-                newIntent.setDataAndType(Uri.fromFile(f), URLConnection.guessContentTypeFromName(s));
+                String s = path.get(position);
+                view.setSelected(true);
+
+
+
+                Intent newIntent = new Intent(AudioWindow.this, restricted.class);
+                newIntent.putExtra("file_path",s);
+                startActivity(newIntent);
+
+
+
+                //newIntent.setDataAndType(Uri.fromFile(f), URLConnection.guessContentTypeFromName(s));
 
                 Intent j = Intent.createChooser(newIntent, "Choose an application to open with: ");
                 startActivity(j);
             }
         });
+    }
+    public ArrayList<String> getFile(File dir) {
+        File listFile[] = dir.listFiles();
+        if (listFile != null && listFile.length > 0) {
+            for (File file : listFile) {
+                if (file.isDirectory()) {
+                    getFile(file);
+                }
+                else {
+                    if (file.getName().endsWith(".png")
+                            || file.getName().endsWith(".jpg")
+                            || file.getName().endsWith(".jpeg")
+                            || file.getName().endsWith(".gif")
+                            || file.getName().endsWith(".bmp")
+                            || file.getName().endsWith(".webp"))
+                    {
+                        String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
+                        if(temp.contains("data")) {
+                            continue;
+                        }
+
+                        if (!fileList.contains(temp))
+                            fileList.add(temp);
+                    }
+                }
+            }
+        }
+        return fileList;
     }
 
     public ArrayList<String> getMusic() {
@@ -168,7 +216,9 @@ public class AudioWindow extends AppCompatActivity {
                 String curretnLocation = songCursor.getString(songLocation);
                 arrayList.add(currentTitle + "\n" + currentArtist);
 
-                paths.add(curretnLocation);
+                String temp = curretnLocation.substring(0, curretnLocation.lastIndexOf('/'));
+                if (!paths.contains(temp))
+                    paths.add(temp);
 
             } while (songCursor.moveToNext());
         }

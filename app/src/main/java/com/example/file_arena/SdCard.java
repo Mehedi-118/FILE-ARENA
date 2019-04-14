@@ -1,10 +1,12 @@
 package com.example.file_arena;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -25,9 +27,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLConnection;
+import java.nio.channels.FileChannel;
 import java.util.HashSet;
 import java.util.Set;
+
+import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
 
 public class SdCard extends AppCompatActivity {
 
@@ -143,10 +153,36 @@ public class SdCard extends AppCompatActivity {
 
                     }
                     case R.id.pasteId: {
-                        String pasteData = "";
                         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData.Item Item = clipboard.getPrimaryClip().getItemAt(0);
-                        pasteData = Item.getText().toString();
+                        String pasteData = "";
+
+                        // If it does contain data, decide if you can handle the data.
+                        if (!(clipboard.hasPrimaryClip())) {
+
+                        } else if (!(clipboard.getPrimaryClipDescription().hasMimeType(MIMETYPE_TEXT_PLAIN))) {
+
+                            // since the clipboard has data but it is not plain text
+
+                        } else {
+
+                            //since the clipboard contains plain text.
+                            ClipData.Item item2 = clipboard.getPrimaryClip().getItemAt(0);
+
+                            // Gets the clipboard as text.
+                            pasteData = item2.getText().toString();
+                        }
+                        String[] files=pasteData.split("\\|");
+                        String[] list=getStorageDirectories(SdCard.this);
+
+                        for(int i=0;i!=files.length;i++) {
+                            Toast.makeText(SdCard.this,files[i],Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SdCard.this,list[0],Toast.LENGTH_SHORT).show();
+                            try {
+                                copyDirectoryOneLocationToAnotherLocation(new File(files[i]),new File(list[0]));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
                     }
 
@@ -162,6 +198,38 @@ public class SdCard extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public static void copyDirectoryOneLocationToAnotherLocation(File sourceLocation, File targetLocation)
+            throws IOException {
+
+        if (sourceLocation.isDirectory()) {
+            if (!targetLocation.exists()) {
+                targetLocation.mkdir();
+            }
+
+            String[] children = sourceLocation.list();
+            for (int i = 0; i < sourceLocation.listFiles().length; i++) {
+
+                copyDirectoryOneLocationToAnotherLocation(new File(sourceLocation, children[i]),
+                        new File(targetLocation, children[i]));
+            }
+        } else {
+
+            InputStream in = new FileInputStream(sourceLocation);
+
+            OutputStream out = new FileOutputStream(targetLocation);
+
+            // Copy the bits from instream to outstream
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            in.close();
+            out.close();
+        }
 
     }
 
@@ -182,6 +250,38 @@ public class SdCard extends AppCompatActivity {
                 newFolder();
 
                 return true;
+            }
+            case R.id.pasteId: {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                String pasteData = "";
+
+                // If it does contain data, decide if you can handle the data.
+                if (!(clipboard.hasPrimaryClip())) {
+
+                } else if (!(clipboard.getPrimaryClipDescription().hasMimeType(MIMETYPE_TEXT_PLAIN))) {
+
+                    // since the clipboard has data but it is not plain text
+
+                } else {
+
+                    //since the clipboard contains plain text.
+                    ClipData.Item item2 = clipboard.getPrimaryClip().getItemAt(0);
+
+                    // Gets the clipboard as text.
+                    pasteData = item2.getText().toString();
+                }
+                String[] files=pasteData.split("\\|");
+                String[] list=getStorageDirectories(SdCard.this);
+
+                for(int i=0;i!=files.length;i++) {
+                    Toast.makeText(SdCard.this,files[i],Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SdCard.this,list[]+"/",Toast.LENGTH_SHORT).show();
+                    try {
+                        copyDirectoryOneLocationToAnotherLocation(new File(files[i]),new File(list[0]+"/myfold"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             default:

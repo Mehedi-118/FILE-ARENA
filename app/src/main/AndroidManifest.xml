@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SubfolderView"></activity>
+        <activity android:name=".restricted"></activity>
+        <activity android:name=".SubfolderView" />
         <activity android:name=".HomePage" />
         <activity android:name=".SdCard" />
         <activity android:name=".InternalStorage" />

@@ -2,6 +2,7 @@ package com.example.file_arena;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +32,9 @@ import java.util.ArrayList;
 public class InternalStorage extends AppCompatActivity {
     ListView lview;
     int count = 0;
+    ArrayList<String> clickedpath = new ArrayList<String>();
     String[] P = new String[0];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +81,8 @@ public class InternalStorage extends AppCompatActivity {
             }
         });
         /**Item On Long clicked  Start*/
-        final ArrayList<String> clickedpath = null;
+
+
         lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         lview.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
@@ -86,7 +90,8 @@ public class InternalStorage extends AppCompatActivity {
 
                 if (checked)
                     clickedpath.add(paths[position].toString());
-                count++;
+                    Toast.makeText(InternalStorage.this,paths[position].toString(),Toast.LENGTH_SHORT).show();
+                    count++;
                 if (!checked) {
                     clickedpath.remove(paths[position].toString());
                     count--;
@@ -115,13 +120,19 @@ public class InternalStorage extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.ShareId: {
 
-                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                        Uri screenshotUri = Uri.parse(path);
-                        sharingIntent.setType("*/*");
-                        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                        startActivity(Intent.createChooser(sharingIntent, "Share With:"));
+                            /*
 
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                            intent.setType(URLConnection.guessContentTypeFromName();
+                            intentShareFile.putExtra(Intent.EXTRA_STREAM,
+                                    Uri.parse("file://"+file.getAbsolutePath()));
 
+                            //if you need
+                            //intentShareFile.putExtra(Intent.EXTRA_SUBJECT,"Sharing File Subject);
+                            //intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File Description");
+
+                            startActivity(Intent.createChooser(intentShareFile, "Share File")); */
 
 
                         return true;
@@ -131,9 +142,12 @@ public class InternalStorage extends AppCompatActivity {
 
                     }
                     case R.id.CopyId: {
-                        ClipboardManager clipboard = (ClipboardManager)
-                                getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("simple text", clickedpath.get(0));
+                        String cp="";
+                        for(int i=0;i!=clickedpath.size();i++) {
+                            cp+=clickedpath.get(i)+"|";
+                        }
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("File path", cp);
                         clipboard.setPrimaryClip(clip);
                         return true;
                     }
