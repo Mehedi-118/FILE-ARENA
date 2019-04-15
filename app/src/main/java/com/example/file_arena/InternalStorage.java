@@ -39,7 +39,7 @@ public class InternalStorage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF0000"));
+        final ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF0000"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         setContentView(R.layout.activity_internal_storage);
 
@@ -119,26 +119,21 @@ public class InternalStorage extends AppCompatActivity {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ShareId: {
-
-                            /*
-
-                            Intent intent = new Intent();
-                            intent.setAction(Intent.ACTION_SEND_MULTIPLE);
-                            intent.setType(URLConnection.guessContentTypeFromName();
-                            intentShareFile.putExtra(Intent.EXTRA_STREAM,
-                                    Uri.parse("file://"+file.getAbsolutePath()));
-
-                            //if you need
-                            //intentShareFile.putExtra(Intent.EXTRA_SUBJECT,"Sharing File Subject);
-                            //intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing File Description");
-
-                            startActivity(Intent.createChooser(intentShareFile, "Share File")); */
-
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        Uri screenshotUri = Uri.parse(clickedpath.get(0));
+                        sharingIntent.setType("*/*");
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                        startActivity(Intent.createChooser(sharingIntent, "Share image using"));
 
                         return true;
 
                     }
                     case R.id.Deleteid: {
+                        for(int i=0;i!=clickedpath.size();i++) {
+                            File f=new File(clickedpath.get(i));
+                            f.delete();
+                        }
+                        Toast.makeText(InternalStorage.this,"deleted",Toast.LENGTH_SHORT).show();
 
                     }
                     case R.id.CopyId: {
