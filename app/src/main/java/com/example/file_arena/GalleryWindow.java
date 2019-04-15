@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,12 +12,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -95,10 +91,10 @@ public class GalleryWindow extends AppCompatActivity {
 
 
 
-                //newIntent.setDataAndType(Uri.fromFile(f), URLConnection.guessContentTypeFromName(s));
+                /*newIntent.setDataAndType(Uri.fromFile(f), URLConnection.guessContentTypeFromName(s));
 
                 Intent j = Intent.createChooser(newIntent, "Choose an application to open with: ");
-                startActivity(j);
+                startActivity(j);*/
             }
         });
     }
