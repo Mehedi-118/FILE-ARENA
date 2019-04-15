@@ -162,8 +162,8 @@ public class AudioWindow extends AppCompatActivity {
         //final ArrayList<String> NewPath = getMusic();
         final ArrayList<String> path=getFile(Environment.getExternalStorageDirectory().getAbsoluteFile());
         ArrayList<String> values=new ArrayList<>();
-        final  String[] sd_card=getStorageDirectories(AudioWindow.this);
-        final ArrayList<String> path2=getFile(new File(sd_card[0]));
+        //final  String[] sd_card=getStorageDirectories(AudioWindow.this);
+        //final ArrayList<String> path2=getFile(new File(sd_card[0]));
         for(int i=0;i!=path.size();i++) {
             File f=new File(path.get(i));
             values.add(f.getName());

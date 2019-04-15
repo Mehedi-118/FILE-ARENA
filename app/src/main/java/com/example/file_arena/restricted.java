@@ -37,6 +37,7 @@ public class restricted extends AppCompatActivity {
         //list content of root sd
 
         final File list[] = file.listFiles();
+        final ArrayList<String> path=new ArrayList<String>();
 
         for (int i = 0; i < list.length; i++) {
 
@@ -52,6 +53,7 @@ public class restricted extends AppCompatActivity {
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".au")
                     ){
                     myList.add(list[i].getName());
+                    path.add(list[i].toString());
 
                 }
 
@@ -67,7 +69,7 @@ public class restricted extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
 
-                String s = list[position].getAbsolutePath();
+                String s = path.get(position);
                 File f = new File(s);
 
 
