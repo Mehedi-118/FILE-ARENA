@@ -95,12 +95,12 @@ public class VideoWindow extends AppCompatActivity {
                 if (file.isDirectory()) {
                     getFile(file);
                 } else {
-                    if (file.getName().endsWith(".png")
-                            || file.getName().endsWith(".jpg")
-                            || file.getName().endsWith(".jpeg")
-                            || file.getName().endsWith(".gif")
-                            || file.getName().endsWith(".bmp")
-                            || file.getName().endsWith(".webp")) {
+                    if (file.getName().endsWith(".mp4")
+                            || file.getName().endsWith(".3gp")
+                            || file.getName().endsWith(".wmv")
+                            || file.getName().endsWith(".avi")
+                            || file.getName().endsWith(".webm")
+                            || file.getName().endsWith(".mkv")) {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
                         if (temp.contains("data")) {
                             continue;
