@@ -143,7 +143,7 @@ public class Restricted_video extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = getLayoutInflater().inflate(R.layout.single_video, parent, false);
             iv = convertView.findViewById(R.id.VideoViewID);
-            iv.setVideoURI(Uri.parse(getItem(position).toString()));
+            iv.setVideoURI(Uri.parse(myList1.get(position)));
 
             return convertView;
         }

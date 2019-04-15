@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ActionMode;
 import android.view.Menu;
@@ -163,7 +162,7 @@ public class SubfolderView extends AppCompatActivity {
     }
 
     void newFolder() {
-        final String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final String path = getIntent().getStringExtra("subfolder");
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(SubfolderView.this);
         View mView = getLayoutInflater().inflate(R.layout.floating_edit_textwindow, null);
         final EditText FileName = mView.findViewById(R.id.write);
@@ -179,7 +178,7 @@ public class SubfolderView extends AppCompatActivity {
                             theDir.mkdir();
                             Toast.makeText(SubfolderView.this, "New Folder created", Toast.LENGTH_SHORT).show();
                             SubfolderView.this.finish();
-                            Intent InternalStorage = new Intent(SubfolderView.this, InternalStorage.class);
+                            Intent InternalStorage = new Intent(SubfolderView.this, SubfolderView.class);
                             startActivity(InternalStorage);
 
                         } catch (SecurityException se) {
@@ -194,7 +193,7 @@ public class SubfolderView extends AppCompatActivity {
                                     theDirx.mkdir();
                                     Toast.makeText(SubfolderView.this, "new folder" + "(" + (i) + ")" + " created", Toast.LENGTH_SHORT).show();
                                     SubfolderView.this.finish();
-                                    Intent InternalStorage = new Intent(SubfolderView.this, InternalStorage.class);
+                                    Intent InternalStorage = new Intent(SubfolderView.this, SubfolderView.class);
                                     startActivity(InternalStorage);
                                     break;
                                 } catch (SecurityException se) {
@@ -214,7 +213,7 @@ public class SubfolderView extends AppCompatActivity {
                             theDir.mkdir();
                             Toast.makeText(SubfolderView.this, "\"" + folderName + "\" folder created", Toast.LENGTH_SHORT).show();
                             SubfolderView.this.finish();
-                            Intent InternalStorage = new Intent(SubfolderView.this, InternalStorage.class);
+                            Intent InternalStorage = new Intent(SubfolderView.this, SubfolderView.class);
                             startActivity(InternalStorage);
 
                         } catch (SecurityException se) {
