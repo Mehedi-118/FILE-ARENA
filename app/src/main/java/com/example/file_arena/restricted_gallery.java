@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -126,12 +123,12 @@ public class restricted_gallery extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return myList.size();
+            return myList1.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return myList.get(position);
+            return myList1.get(position);
         }
 
         @Override
@@ -142,7 +139,7 @@ public class restricted_gallery extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView=getLayoutInflater().inflate(R.layout.single_grid_view,parent,false);
-            ImageView iv=(ImageView)convertView.findViewById(R.id.SingleImageView);
+            ImageView iv = convertView.findViewById(R.id.SingleImageView);
             iv.setImageURI(Uri.parse(getItem(position).toString()));
             return  convertView;
         }
