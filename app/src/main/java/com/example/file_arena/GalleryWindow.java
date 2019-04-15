@@ -68,7 +68,7 @@ public class GalleryWindow extends AppCompatActivity {
         arrayList = new ArrayList<>();
 
         //final ArrayList<String> NewPath = getMusic();
-        final ArrayList<String> path=getFile(Environment.getExternalStorageDirectory());
+        final ArrayList<String> path=getFile(Environment.getExternalStorageDirectory().getAbsoluteFile());
         ArrayList<String> values=new ArrayList<>();
         for(int i=0;i!=path.size();i++) {
             File f=new File(path.get(i));
@@ -110,7 +110,6 @@ public class GalleryWindow extends AppCompatActivity {
                             || file.getName().endsWith(".jpg")
                             || file.getName().endsWith(".jpeg")
                             || file.getName().endsWith(".gif")
-                            || file.getName().endsWith(".bmp")
                             || file.getName().endsWith(".webp"))
                     {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));

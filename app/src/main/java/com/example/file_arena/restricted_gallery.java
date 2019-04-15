@@ -55,7 +55,6 @@ public class restricted_gallery extends AppCompatActivity {
             if(list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".jpg")
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".jpeg")
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".png")
-                    ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".bmp")
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".webp")
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".gif")
             )
