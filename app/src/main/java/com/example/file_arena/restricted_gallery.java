@@ -60,7 +60,7 @@ public class restricted_gallery extends AppCompatActivity {
             )
             {
                 myList.add(list[i].getName());
-                myList1.add(list[i].getAbsolutePath());
+                myList1.add(list[i].toString());
 
              }
 

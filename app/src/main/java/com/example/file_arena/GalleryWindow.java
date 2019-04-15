@@ -104,14 +104,13 @@ public class GalleryWindow extends AppCompatActivity {
                     getFile(file);
                 }
                 else {
-                    if (file.getName().endsWith(".png")
-                            || file.getName().endsWith(".jpg")
+                    if (file.getName().endsWith(".jpg")
                             || file.getName().endsWith(".jpeg")
                             || file.getName().endsWith(".gif")
                             || file.getName().endsWith(".webp"))
                     {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
-                        if(temp.contains("data")) {
+                        if(temp.contains("data") || temp.startsWith(".")) {
                             continue;
                         }
 

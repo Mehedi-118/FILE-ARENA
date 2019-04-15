@@ -2,6 +2,7 @@ package com.example.file_arena;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -27,7 +28,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AudioWindow extends AppCompatActivity {
     static final int MY_PERMISSION_REQUEST = 1;
@@ -131,6 +136,24 @@ public class AudioWindow extends AppCompatActivity {
 
         /** Item Onlongclicked  End  */
     }
+    public static String[] getStorageDirectories(Context pContext) {
+
+        final Set<String> rv = new HashSet<>();
+    //comment
+
+        File[] listExternalDirs = ContextCompat.getExternalFilesDirs(pContext, null);
+        for (int i = 0; i < listExternalDirs.length; i++) {
+            if (listExternalDirs[i] != null) {
+                String path = listExternalDirs[i].getAbsolutePath();
+                int indexMountRoot = path.indexOf("/Android/data/");
+                if (indexMountRoot >= 0 && indexMountRoot <= path.length()) {
+
+                    rv.add(path.substring(0, indexMountRoot));
+                }
+            }
+        }
+        return rv.toArray(new String[rv.size()]);
+    }
 
     public void result() {
         listView = findViewById(R.id.audioListid);
@@ -139,6 +162,8 @@ public class AudioWindow extends AppCompatActivity {
         //final ArrayList<String> NewPath = getMusic();
         final ArrayList<String> path=getFile(Environment.getExternalStorageDirectory().getAbsoluteFile());
         ArrayList<String> values=new ArrayList<>();
+        //final  String[] sd_card=getStorageDirectories(AudioWindow.this);
+        //final ArrayList<String> path2=getFile(new File(sd_card[0]));
         for(int i=0;i!=path.size();i++) {
             File f=new File(path.get(i));
             values.add(f.getName());
