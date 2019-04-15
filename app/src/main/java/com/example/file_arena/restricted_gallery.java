@@ -52,7 +52,6 @@ public class restricted_gallery extends AppCompatActivity {
             //check the contents of each folder before adding to list
 
 
-
             if(list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".jpg")
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".jpeg")
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".png")
