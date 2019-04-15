@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,8 +25,9 @@ import java.util.Locale;
 public class restricted_gallery extends AppCompatActivity {
     ListView lview;
     GridView gv;
-    ArrayList<File> list;
+
     ArrayList<String> myList = new ArrayList<String>();
+    ArrayList<String> myList1 = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +62,12 @@ public class restricted_gallery extends AppCompatActivity {
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".bmp")
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".webp")
                     ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".gif")
-            ){
+            )
+            {
                 myList.add(list[i].getName());
+                myList1.add(list[i].getAbsolutePath());
 
-            }
+             }
 
 
         }
@@ -100,7 +104,8 @@ public class restricted_gallery extends AppCompatActivity {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-               String s = myList.get(position);
+               String s = myList1.get(position);
+
                File f = new File(s);
 
 
