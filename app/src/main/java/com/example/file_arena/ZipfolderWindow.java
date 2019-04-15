@@ -91,7 +91,7 @@ public class ZipfolderWindow extends AppCompatActivity {
                 } else {
                     if (file.getName().endsWith(".zip") || file.getName().endsWith(".rar")) {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
-                        if (temp.contains("data")) {
+                        if (temp.contains("data") || temp.startsWith(".")) {
                             continue;
                         }
 

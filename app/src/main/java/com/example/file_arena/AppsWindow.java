@@ -93,7 +93,7 @@ public class AppsWindow extends AppCompatActivity {
                 } else {
                     if (file.getName().endsWith(".apk")) {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
-                        if (temp.contains("data")) {
+                        if (temp.contains("data") || temp.startsWith(".")) {
                             continue;
                         }
 

@@ -28,8 +28,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -213,7 +211,7 @@ public class AudioWindow extends AppCompatActivity {
                             || file.getName().endsWith(".au"))
                     {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
-                        if(temp.contains("data")) {
+                        if (temp.contains("data") || temp.startsWith(".")) {
                             continue;
                         }
 

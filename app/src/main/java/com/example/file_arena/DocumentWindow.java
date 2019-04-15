@@ -108,7 +108,7 @@ public class DocumentWindow extends AppCompatActivity {
                             || file.getName().endsWith(".docx")
                     ) {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
-                        if (temp.contains("data")) {
+                        if (temp.contains("data") || temp.startsWith(".")) {
                             continue;
                         }
 
