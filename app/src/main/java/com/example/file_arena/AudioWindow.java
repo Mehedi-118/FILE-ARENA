@@ -177,12 +177,12 @@ public class AudioWindow extends AppCompatActivity {
                     getFile(file);
                 }
                 else {
-                    if (file.getName().endsWith(".png")
-                            || file.getName().endsWith(".jpg")
-                            || file.getName().endsWith(".jpeg")
-                            || file.getName().endsWith(".gif")
-                            || file.getName().endsWith(".bmp")
-                            || file.getName().endsWith(".webp"))
+                    if (file.getName().endsWith(".mp3")
+                            || file.getName().endsWith(".wav")
+                            || file.getName().endsWith(".wma")
+                            || file.getName().endsWith(".mp2")
+                            || file.getName().endsWith(".aac")
+                            || file.getName().endsWith(".au"))
                     {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
                         if(temp.contains("data")) {

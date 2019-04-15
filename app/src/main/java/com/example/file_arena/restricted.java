@@ -44,7 +44,13 @@ public class restricted extends AppCompatActivity {
 
 
 
-                if(list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".jpg")){
+                if(list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".mp3")
+                    ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".mp2")
+                    ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".wav")
+                    ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".wma")
+                    ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".aac")
+                    ||list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".au")
+                    ){
                     myList.add(list[i].getName());
 
                 }
@@ -62,7 +68,6 @@ public class restricted extends AppCompatActivity {
                 view.setSelected(true);
 
                 String s = list[position].getAbsolutePath();
-                view.setSelected(true);
                 File f = new File(s);
 
 
