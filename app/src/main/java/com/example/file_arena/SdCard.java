@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,6 +42,7 @@ import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
 public class SdCard extends AppCompatActivity {
 
     ListView lview;
+    ArrayList<String> clickedpath = new ArrayList<String>();
     int count = 0;
     public static String[] getStorageDirectories(Context pContext) {
 
@@ -151,7 +153,23 @@ public class SdCard extends AppCompatActivity {
 
                     }
                     case R.id.Deleteid: {
+                        for (int i = 0; i != clickedpath.size(); i++) {
+                            File f = new File(clickedpath.get(i));
+                            f.delete();
+                        }
+                        Toast.makeText(SdCard.this, "deleted", Toast.LENGTH_SHORT).show();
+                        return true;
 
+                    }
+                    case R.id.CopyId: {
+                        String cp = "";
+                        for (int i = 0; i != clickedpath.size(); i++) {
+                            cp += clickedpath.get(i) + "|";
+                        }
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("File path", cp);
+                        clipboard.setPrimaryClip(clip);
+                        return true;
                     }
                     case R.id.pasteId: {
                         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
