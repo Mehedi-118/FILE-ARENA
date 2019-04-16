@@ -1,17 +1,26 @@
 package com.example.file_arena;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,6 +34,7 @@ public class AppsWindow extends AppCompatActivity {
     static final int MY_PERMISSION_REQUEST = 1;
     ArrayAdapter<String> adapter;
     ArrayList<String> fileList = new ArrayList<String>();
+    ArrayList<String> clickedpath = new ArrayList<String>();
     ListView lview;
     int count = 0;
     ArrayList<String> arrayList;
@@ -60,7 +70,7 @@ public class AppsWindow extends AppCompatActivity {
 
         //final ArrayList<String> NewPath = getMusic();
         final ArrayList<String> path = getFile(Environment.getExternalStorageDirectory().getAbsoluteFile());
-        ArrayList<String> values = new ArrayList<>();
+        final ArrayList<String> values = new ArrayList<>();
         for (int i = 0; i != path.size(); i++) {
             File f = new File(path.get(i));
             values.add(f.getName());
@@ -84,6 +94,91 @@ public class AppsWindow extends AppCompatActivity {
 
             }
         });
+
+
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+                if (checked)
+                    clickedpath.add(values.get(position));
+                Toast.makeText(AppsWindow.this, values.get(position), Toast.LENGTH_SHORT).show();
+                count++;
+                if (!checked) {
+                    clickedpath.remove(values.get(position));
+                    count--;
+                }
+
+                mode.setTitle(count + "Selected");
+
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater menuInflater = mode.getMenuInflater();
+                menuInflater.inflate(R.menu.long_clicked_menu_item, menu);
+
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ShareId: {
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        Uri screenshotUri = Uri.parse(clickedpath.get(0));
+                        sharingIntent.setType("*/*");
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                        startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+
+                        return true;
+
+                    }
+                    case R.id.Deleteid: {
+                        for (int i = 0; i != clickedpath.size(); i++) {
+                            File f = new File(clickedpath.get(i));
+                            f.delete();
+                        }
+                        Toast.makeText(AppsWindow.this, "deleted", Toast.LENGTH_SHORT).show();
+
+                    }
+                    case R.id.CopyId: {
+                        String cp = "";
+                        for (int i = 0; i != clickedpath.size(); i++) {
+                            cp += clickedpath.get(i) + "|";
+                        }
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("File path", cp);
+                        clipboard.setPrimaryClip(clip);
+                        return true;
+                    }
+
+
+                    default:
+                        return false;
+                }
+
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
+
+
+        /** Item Onlongclicked  End  */
+
+
+
+
     }
 
     public ArrayList<String> getFile(File dir) {

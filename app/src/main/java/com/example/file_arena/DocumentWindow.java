@@ -1,6 +1,8 @@
 package com.example.file_arena;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +42,9 @@ public class DocumentWindow extends AppCompatActivity {
     ListView lview;
     int count = 0;
     ArrayList<String> arrayList;
+    ArrayList<String> clickedpath = new ArrayList<>();
     ArrayList<String> paths;
+    ArrayList<String> values = new ArrayList<>();
 
     private ListView listView;
 
@@ -84,20 +88,17 @@ public class DocumentWindow extends AppCompatActivity {
 
         }
 
-
-        /**Item On Long clicked  Start*/
-
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+        lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        lview.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
 
                 if (checked)
-                    // clickedpath.add(paths[position].toString());
-                    // Toast.makeText(AudioWindow.this,paths[position].toString(),Toast.LENGTH_SHORT).show();
-                    count++;
+                    clickedpath.add(values.get(position));
+                // Toast.makeText(DocumentWindow.this,paths[position].toString(),Toast.LENGTH_SHORT).show();
+                count++;
                 if (!checked) {
-                    // clickedpath.remove(paths[position].toString());
+                    clickedpath.remove(values.get(position));
                     count--;
                 }
 
@@ -114,7 +115,6 @@ public class DocumentWindow extends AppCompatActivity {
                 return true;
             }
 
-
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 return false;
@@ -124,19 +124,32 @@ public class DocumentWindow extends AppCompatActivity {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ShareId: {
-
                         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                        // Uri screenshotUri = Uri.parse(path);
+                        Uri screenshotUri = Uri.parse(clickedpath.get(0));
                         sharingIntent.setType("*/*");
-                        //  sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                        startActivity(Intent.createChooser(sharingIntent, "Share With:"));
-
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                        startActivity(Intent.createChooser(sharingIntent, "Share image using"));
 
                         return true;
 
                     }
                     case R.id.Deleteid: {
+                        for (int i = 0; i != clickedpath.size(); i++) {
+                            File f = new File(clickedpath.get(i));
+                            f.delete();
+                        }
+                        Toast.makeText(DocumentWindow.this, "deleted", Toast.LENGTH_SHORT).show();
 
+                    }
+                    case R.id.CopyId: {
+                        String cp = "";
+                        for (int i = 0; i != clickedpath.size(); i++) {
+                            cp += clickedpath.get(i) + "|";
+                        }
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("File path", cp);
+                        clipboard.setPrimaryClip(clip);
+                        return true;
                     }
 
 
@@ -154,6 +167,8 @@ public class DocumentWindow extends AppCompatActivity {
 
 
         /** Item Onlongclicked  End  */
+
+
     }
 
     public void result() {
@@ -162,7 +177,7 @@ public class DocumentWindow extends AppCompatActivity {
 
         //final ArrayList<String> NewPath = getMusic();
         final ArrayList<String> path = getFile(Environment.getExternalStorageDirectory().getAbsoluteFile());
-        ArrayList<String> values = new ArrayList<>();
+
         //final  String[] sd_card=getStorageDirectories(AudioWindow.this);
         //final ArrayList<String> path2=getFile(new File(sd_card[0]));
         for (int i = 0; i != path.size(); i++) {
@@ -199,6 +214,8 @@ public class DocumentWindow extends AppCompatActivity {
                 //startActivity(j);
             }
         });
+
+
     }
     public ArrayList<String> getFile(File dir) {
         File listFile[] = dir.listFiles();
