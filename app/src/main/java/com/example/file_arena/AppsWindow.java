@@ -55,7 +55,7 @@ public class AppsWindow extends AppCompatActivity {
     }
 
     public void result() {
-        listView = findViewById(R.id.appsListid);
+        listView = findViewById(R.id.appsListid1);
         arrayList = new ArrayList<>();
 
         //final ArrayList<String> NewPath = getMusic();
@@ -66,7 +66,9 @@ public class AppsWindow extends AppCompatActivity {
             values.add(f.getName());
         }
 
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        // adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, values);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

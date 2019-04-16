@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class listZip extends AppCompatActivity {
     ListView lview;
-
+    ArrayList<String> mylist1 = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +30,7 @@ public class listZip extends AppCompatActivity {
         setContentView(R.layout.activity_list_zip);
 
 
-        lview = findViewById(R.id.appsListid);
+        lview = findViewById(R.id.zipListid1);
         ArrayList<String> myList = new ArrayList<String>();
 
 
@@ -46,14 +46,16 @@ public class listZip extends AppCompatActivity {
             //check the contents of each folder before adding to list
 
 
-            if (list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".apk")) {
+            if (list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".zip") || list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".rar")) {
                 myList.add(list[i].getName());
+                mylist1.add(list[i].getAbsolutePath());
 
             }
 
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, myList);
+        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, myList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, myList);
         lview.setAdapter(adapter);//setting the adapter
 
 
@@ -62,7 +64,7 @@ public class listZip extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
 
-                String s = list[position].getAbsolutePath();
+                String s = mylist1.get(position);
                 File f = new File(s);
 
 

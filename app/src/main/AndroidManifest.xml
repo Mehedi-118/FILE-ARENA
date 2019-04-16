@@ -29,11 +29,14 @@
         <activity android:name=".FavoriteWindow" />
         <activity android:name=".DownloadWindow" />
         <activity android:name=".AppsWindow" />
+        <activity android:name=".Document" />
         <activity android:name=".ZipfolderWindow" />
         <activity android:name=".DocumentWindow" />
         <activity android:name=".AudioWindow" />
         <activity android:name=".VideoWindow" />
         <activity android:name=".GalleryWindow" />
+        <activity android:name=".listZip" />
+
         <activity
             android:name=".SplashWIndow"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

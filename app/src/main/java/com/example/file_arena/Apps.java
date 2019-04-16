@@ -18,6 +18,7 @@ import java.util.Locale;
 
 public class Apps extends AppCompatActivity {
     ListView lview;
+    ArrayList<String> mylist1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +46,14 @@ public class Apps extends AppCompatActivity {
 
             if (list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".apk")) {
                 myList.add(list[i].getName());
+                mylist1.add(list[i].getAbsolutePath());
 
             }
 
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, myList);
+        // adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, myList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, myList);
         lview.setAdapter(adapter);//setting the adapter
 
 
@@ -59,7 +62,7 @@ public class Apps extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
 
-                String s = list[position].getAbsolutePath();
+                String s = mylist1.get(position);
                 File f = new File(s);
 
 

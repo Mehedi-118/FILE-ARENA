@@ -80,9 +80,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="199dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="216dp"
         app:srcCompat="@drawable/documents" />
 
     <ImageButton
@@ -92,7 +92,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="199dp"
+        android:layout_marginTop="216dp"
         android:layout_marginEnd="150dp"
         android:layout_marginRight="150dp"
         app:srcCompat="@drawable/compressed_file" />
@@ -104,9 +104,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="199dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginTop="216dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="29dp"
         app:srcCompat="@drawable/apps" />
 
     <ImageButton
@@ -116,34 +116,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="38dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginBottom="175dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginBottom="191dp"
         app:srcCompat="@drawable/downloads" />
-
-    <ImageButton
-        android:id="@+id/recentButton"
-        android:layout_width="107dp"
-        android:layout_height="102dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="147dp"
-        android:layout_marginRight="147dp"
-        android:layout_marginBottom="175dp"
-        app:srcCompat="@drawable/recent_files" />
-
-    <ImageButton
-        android:id="@+id/favoriteButton"
-        android:layout_width="107dp"
-        android:layout_height="102dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="176dp"
-        app:srcCompat="@drawable/favorits" />
 
     <TextView
         android:id="@+id/textView"
@@ -152,9 +128,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="174dp"
         android:text="      Photos"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
@@ -197,9 +173,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="306dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="332dp"
         android:text="    Documents"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -214,7 +190,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="156dp"
         android:layout_marginLeft="156dp"
-        android:layout_marginTop="306dp"
+        android:layout_marginTop="332dp"
         android:text="    compressed"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -227,9 +203,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="305dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginTop="333dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:text="    Applications"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
@@ -246,36 +222,6 @@
         android:layout_marginLeft="44dp"
         android:layout_marginBottom="155dp"
         android:text="  Downloads"
-        android:textAllCaps="true"
-        android:textColor="@android:color/background_dark"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="165dp"
-        android:layout_marginLeft="165dp"
-        android:layout_marginBottom="156dp"
-        android:text="    Recent Files"
-        android:textAllCaps="true"
-        android:textColor="@android:color/background_dark"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="99dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="33dp"
-        android:layout_marginRight="33dp"
-        android:layout_marginBottom="158dp"
-        android:text="    Favorites"
         android:textAllCaps="true"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold|italic" />

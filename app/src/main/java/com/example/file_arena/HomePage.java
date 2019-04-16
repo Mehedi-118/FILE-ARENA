@@ -159,7 +159,9 @@ public class HomePage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF0000"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
@@ -176,10 +178,10 @@ public class HomePage extends AppCompatActivity {
         audio = findViewById(R.id.audioButton);
         document = findViewById(R.id.documentButton);
         compressed = findViewById(R.id.zipFolderButton);
-        favorite = findViewById(R.id.favoriteButton);
+        // favorite = findViewById(R.id.favoriteButton);
         download = findViewById(R.id.downloadButton);
         application = findViewById(R.id.appsButton);
-        recent = findViewById(R.id.recentButton);
+        //  recent = findViewById(R.id.recentButton);
         hardDrive = findViewById(R.id.internalStorageButton);
         Ssd = findViewById(R.id.microSdButton);
 
@@ -352,7 +354,7 @@ public class HomePage extends AppCompatActivity {
                 startActivity(downloadWindow);
                 Toast.makeText(HomePage.this, "Downloads", Toast.LENGTH_SHORT).show();
             }
-            if (v.getId() == R.id.favoriteButton) {
+           /* if (v.getId() == R.id.favoriteButton) {
                 Intent favoriteWindow = new Intent(HomePage.this, FavoriteWindow.class);
                 startActivity(favoriteWindow);
                 Toast.makeText(HomePage.this, "Favorites", Toast.LENGTH_SHORT).show();
@@ -361,7 +363,7 @@ public class HomePage extends AppCompatActivity {
                 Intent recentWindow = new Intent(HomePage.this, RecentWindow.class);
                 startActivity(recentWindow);
                 Toast.makeText(HomePage.this, "Photo Gallery", Toast.LENGTH_SHORT).show();
-            }
+            }*/
             if (v.getId() == R.id.internalStorageButton) {
                 Intent InternalStorage = new Intent(HomePage.this, InternalStorage.class);
                 startActivity(InternalStorage);

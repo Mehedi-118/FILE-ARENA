@@ -18,6 +18,7 @@ import java.util.Locale;
 
 public class Document extends AppCompatActivity {
     ListView lview;
+    ArrayList<String> mylist1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class Document extends AppCompatActivity {
         setContentView(R.layout.activity_document);
 
 
-        lview = findViewById(R.id.appsListid);
+        lview = findViewById(R.id.documentListid);
         ArrayList<String> myList = new ArrayList<String>();
 
 
@@ -44,40 +45,42 @@ public class Document extends AppCompatActivity {
             //check the contents of each folder before adding to list
 
 
-            if (list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".pdf")
-                    || list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".docx")
-                    || list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".html")) {
+            if (list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".docx")
+                    || list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".html")
+                    || list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".pdf")
+                    || list[i].getName().toLowerCase(Locale.getDefault()).endsWith(".pptx")) {
                 myList.add(list[i].getName());
+                mylist1.add(list[i].getAbsolutePath());
+
 
             }
+            // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, myList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, myList);
+            lview.setAdapter(adapter);//setting the adapter
 
+
+            lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    view.setSelected(true);
+
+                    String s = mylist1.get(position);
+                    File f = new File(s);
+
+
+                    // MimeTypeMap myMime=MimeTypeMap.getSingleton();
+                    Intent newIntent = new Intent(Intent.ACTION_VIEW);
+
+                    newIntent.setDataAndType(Uri.fromFile(f), URLConnection.guessContentTypeFromName(s));
+
+                    Intent j = Intent.createChooser(newIntent, "Choose an application to open with: ");
+                    startActivity(j);
+                }
+
+
+            });
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, myList);
-        lview.setAdapter(adapter);//setting the adapter
-
-
-        lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setSelected(true);
-
-                String s = list[position].getAbsolutePath();
-                File f = new File(s);
-
-
-                // MimeTypeMap myMime=MimeTypeMap.getSingleton();
-                Intent newIntent = new Intent(Intent.ACTION_VIEW);
-
-                newIntent.setDataAndType(Uri.fromFile(f), URLConnection.guessContentTypeFromName(s));
-
-                Intent j = Intent.createChooser(newIntent, "Choose an application to open with: ");
-                startActivity(j);
-            }
-
-
-        });
-
     }
 }
 

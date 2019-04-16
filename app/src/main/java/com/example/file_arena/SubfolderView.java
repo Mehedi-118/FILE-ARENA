@@ -41,7 +41,9 @@ public class SubfolderView extends AppCompatActivity {
         File f = new File(folder);
         final File[] paths = f.listFiles();
         final String[] values = f.list();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, values);
+
         listView.setAdapter(adapter);//setting the adapter
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

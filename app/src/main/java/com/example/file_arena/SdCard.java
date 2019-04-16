@@ -6,11 +6,11 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ActionMode;
@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLConnection;
-import java.nio.channels.FileChannel;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -79,7 +78,9 @@ public class SdCard extends AppCompatActivity {
 
         String[] values = f.list();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        //  ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, values);
+
         lview.setAdapter(adapter);//setting the adapter
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -292,6 +293,7 @@ public class SdCard extends AppCompatActivity {
     void newFolder() {
         final String[] list = getStorageDirectories(SdCard.this);
 
+
         File f = new File(list[0]);
         final String path = list[0];
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(SdCard.this);
@@ -303,10 +305,13 @@ public class SdCard extends AppCompatActivity {
             public void onClick(View view) {
                 if (FileName.getText().toString().isEmpty()) {
 
-                    File theDir = new File(path + "//new folder");
+                    File theDir = new File(list[1] + "//new folder");
+                    ActivityCompat.requestPermissions(SdCard.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            1);
                     if (!theDir.exists()) {
                         try {
-                            theDir.mkdir();
+                            theDir.mkdirs();
                             Toast.makeText(SdCard.this, "New Folder created", Toast.LENGTH_SHORT).show();
                             SdCard.this.finish();
                             Intent InternalStorage = new Intent(SdCard.this, SdCard.class);
@@ -344,7 +349,7 @@ public class SdCard extends AppCompatActivity {
                             theDir.mkdir();
                             Toast.makeText(SdCard.this, "\"" + folderName + "\" folder created", Toast.LENGTH_SHORT).show();
                             SdCard.this.finish();
-                            Intent InternalStorage = new Intent(SdCard.this, InternalStorage.class);
+                            Intent InternalStorage = new Intent(SdCard.this, SdCard.class);
                             startActivity(InternalStorage);
 
                         } catch (SecurityException se) {

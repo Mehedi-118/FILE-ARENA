@@ -2,7 +2,6 @@ package com.example.file_arena;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
-import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -51,7 +50,8 @@ public class InternalStorage extends AppCompatActivity {
 
         final String[] values = f.list();//getting the list of files in string array
         //now presenting the data into screen
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, values);
         lview.setAdapter(adapter);//setting the adapter
 
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

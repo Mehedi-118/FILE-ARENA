@@ -2,6 +2,7 @@ package com.example.file_arena;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -15,7 +16,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,6 +29,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DocumentWindow extends AppCompatActivity {
 
@@ -35,6 +43,26 @@ public class DocumentWindow extends AppCompatActivity {
     ArrayList<String> paths;
 
     private ListView listView;
+
+    public static String[] getStorageDirectories(Context pContext) {
+
+        final Set<String> rv = new HashSet<>();
+        //comment
+
+        File[] listExternalDirs = ContextCompat.getExternalFilesDirs(pContext, null);
+        for (int i = 0; i < listExternalDirs.length; i++) {
+            if (listExternalDirs[i] != null) {
+                String path = listExternalDirs[i].getAbsolutePath();
+                int indexMountRoot = path.indexOf("/Android/data/");
+                if (indexMountRoot >= 0 && indexMountRoot <= path.length()) {
+
+                    rv.add(path.substring(0, indexMountRoot));
+                }
+            }
+        }
+        return rv.toArray(new String[rv.size()]);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,15 +83,88 @@ public class DocumentWindow extends AppCompatActivity {
             result();
 
         }
+
+
+        /**Item On Long clicked  Start*/
+
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+                if (checked)
+                    // clickedpath.add(paths[position].toString());
+                    // Toast.makeText(AudioWindow.this,paths[position].toString(),Toast.LENGTH_SHORT).show();
+                    count++;
+                if (!checked) {
+                    // clickedpath.remove(paths[position].toString());
+                    count--;
+                }
+
+                mode.setTitle(count + "Selected");
+
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater menuInflater = mode.getMenuInflater();
+                menuInflater.inflate(R.menu.long_clicked_menu_item, menu);
+
+                return true;
+            }
+
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ShareId: {
+
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        // Uri screenshotUri = Uri.parse(path);
+                        sharingIntent.setType("*/*");
+                        //  sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                        startActivity(Intent.createChooser(sharingIntent, "Share With:"));
+
+
+                        return true;
+
+                    }
+                    case R.id.Deleteid: {
+
+                    }
+
+
+                    default:
+                        return false;
+                }
+
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
+
+
+        /** Item Onlongclicked  End  */
     }
 
     public void result() {
-        listView = findViewById(R.id.restricted);
+        listView = findViewById(R.id.documentListid1);
         arrayList = new ArrayList<>();
 
         //final ArrayList<String> NewPath = getMusic();
         final ArrayList<String> path = getFile(Environment.getExternalStorageDirectory().getAbsoluteFile());
         ArrayList<String> values = new ArrayList<>();
+        //final  String[] sd_card=getStorageDirectories(AudioWindow.this);
+        //final ArrayList<String> path2=getFile(new File(sd_card[0]));
         for (int i = 0; i != path.size(); i++) {
             File f = new File(path.get(i));
             values.add(f.getName());
@@ -73,7 +174,9 @@ public class DocumentWindow extends AppCompatActivity {
             values.add(f.getName());
             path.add(path2.get(i));
         }*/
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        // adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, values);
+
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,9 +186,11 @@ public class DocumentWindow extends AppCompatActivity {
                 view.setSelected(true);
 
 
+
                 Intent newIntent = new Intent(DocumentWindow.this, Document.class);
                 newIntent.putExtra("file_path", s);
                 startActivity(newIntent);
+
 
 
                 //newIntent.setDataAndType(Uri.fromFile(f), URLConnection.guessContentTypeFromName(s));
@@ -95,7 +200,6 @@ public class DocumentWindow extends AppCompatActivity {
             }
         });
     }
-
     public ArrayList<String> getFile(File dir) {
         File listFile[] = dir.listFiles();
         if (listFile != null && listFile.length > 0) {
@@ -104,8 +208,9 @@ public class DocumentWindow extends AppCompatActivity {
                     getFile(file);
                 } else {
                     if (file.getName().endsWith(".pdf")
-                            || file.getName().endsWith(".html")
                             || file.getName().endsWith(".docx")
+                            || file.getName().endsWith(".html")
+                            || file.getName().endsWith(".pptx")
                     ) {
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
                         if (temp.contains("data") || temp.startsWith(".")) {

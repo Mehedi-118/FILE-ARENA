@@ -53,7 +53,7 @@ public class ZipfolderWindow extends AppCompatActivity {
     }
 
     public void result() {
-        listView = findViewById(R.id.appsListid);
+        listView = findViewById(R.id.zipListid);
         arrayList = new ArrayList<>();
 
         //final ArrayList<String> NewPath = getMusic();
@@ -64,7 +64,9 @@ public class ZipfolderWindow extends AppCompatActivity {
             values.add(f.getName());
         }
 
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+        //adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, values);
+
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, R.id.list_content, values);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,6 +74,7 @@ public class ZipfolderWindow extends AppCompatActivity {
 
                 String s = path.get(position);
                 view.setSelected(true);
+
 
 
                 Intent newIntent = new Intent(ZipfolderWindow.this, listZip.class);
