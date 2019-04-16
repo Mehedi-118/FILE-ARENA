@@ -196,8 +196,8 @@ public class HomePage extends AppCompatActivity {
         download.setOnClickListener(handler);
         document.setOnClickListener(handler);
         application.setOnClickListener(handler);
-        recent.setOnClickListener(handler);
-        favorite.setOnClickListener(handler);
+        //recent.setOnClickListener(handler);
+        //favorite.setOnClickListener(handler);
         compressed.setOnClickListener(handler);
         hardDrive.setOnClickListener(handler);
         Ssd.setOnClickListener(handler);
