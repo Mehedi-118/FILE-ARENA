@@ -10,5 +10,5 @@
         android:layout_margin="4dip"
         android:gravity="center"
         android:text="sample"
-        android:textColor="#ffffff" />
+        android:textColor="#1976D2" />
 </LinearLayout>

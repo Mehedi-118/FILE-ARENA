@@ -56,7 +56,7 @@ public class DownloadWindow extends AppCompatActivity {
                 TextView textView = view.findViewById(android.R.id.text1);
 
                 /*YOUR CHOICE OF COLOR*/
-                textView.setTextColor(Color.WHITE);
+                textView.setTextColor(Color.BLUE);
 
                 return view;
             }
